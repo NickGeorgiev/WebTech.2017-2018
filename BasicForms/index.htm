@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Elective Course Form</title>
+  <meta charset="utf-8" />
+  <style>
+    label{
+      vertical-align: top;
+    }
+
+  </style>
+</head>
+<body>
+<form action="checkLogin.php" method="post" target="_blank">
+  <label for="courseName">Име на курс:</label>
+  <input type="text" name="courseName" placeholder="име на курс" required /><br />
+  <label for="lecturer">Име на преподавател:</label>
+  <input type="text" name="lecturer" placeholder="име на преподавателя" required /><br />
+  <label for="courseInfo">Описание на курса:</label>
+  <textarea name="courseInfo" rows="3" cols="30" placeholder="Описание" required></textarea><br />
+  <label for="courseGroup">Вид на курса:</label>
+  <select name="courseGroup">
+    <<option value="1">М</option>
+    <<option value="2">ПМ</option>
+    <<option value="3">ОКН</option>
+    <<option value="4">ЯКН</option>
+  </select><br />
+  <label for="credits">Кредити:</label>
+  <input type="number" name="credits" value="0" /><br />
+  <input type="submit" value="Изпрати" />
+</form>
+</body>
+</html>
