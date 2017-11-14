@@ -7,7 +7,13 @@
     label{
       vertical-align: top;
     }
-
+    ::placeholder{
+      font-size: 15px;
+    }
+    input{
+      font-size: 15px;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -20,10 +26,10 @@
   <textarea name="courseInfo" rows="3" cols="30" placeholder="Описание" required></textarea><br />
   <label for="courseGroup">Вид на курса:</label>
   <select name="courseGroup">
-    <<option value="1">М</option>
-    <<option value="2">ПМ</option>
-    <<option value="3">ОКН</option>
-    <<option value="4">ЯКН</option>
+    <option value="1">М</option>
+    <option value="2">ПМ</option>
+    <option value="3">ОКН</option>
+    <option value="4">ЯКН</option>
   </select><br />
   <label for="credits">Кредити:</label>
   <input type="number" name="credits" value="0" /><br />
