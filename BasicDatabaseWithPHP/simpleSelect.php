@@ -4,7 +4,7 @@ try{
   $selectQ = "SELECT * FROM `electives` ";
   $query = $test->query($selectQ) or die("FAIL!");
   while($row = $query->fetch(PDO::FETCH_ASSOC)){
-    print_r($row);
+    echo $row['title'];
   }
 }
 catch(Exception $e){
