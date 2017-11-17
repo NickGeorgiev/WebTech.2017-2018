@@ -1,5 +1,19 @@
+<!DOCTYPE html>
+<html>
+<header>
+  <title>Validating Form</title>
+  <style>
+  ul{
+    margin: 0;
+    padding: 0;
+    list-style-type:none;
+  }
+</style>
+</header>
+<body>
 <?php
 $errors = array();
+$groupName = [ "М","ПМ","ОКН","ЯКН"];
 if(strlen($_POST['courseName']) > 150 ){
   $errors['courseName'] = "<p> Името на курса е по-дълго от 15 символа. </p><br />\n";
 }
@@ -18,5 +32,16 @@ if(!empty($errors)){
     echo $value;
   }
 }
-else echo "<p> Данните са коректни! </p><br />\n";
+else{
+  echo "<p> Данните са коректни! </p><br />\n";
+  echo  "<ul>\n".
+          "<li>Предмет:".$_POST['courseName']."</li>\n".
+          "<li>Преподавател:".$_POST['lecturer']."</li>\n".
+          "<li>Описание на предмета:".$_POST['courseInfo']."</li>\n".
+          "<li>Група:".$groupName[$_POST['courseGroup']-1]."</li>\n".
+          "<li>Кредити:".$_POST['credits']."</li>\n".
+         "</ul>";
+}
  ?>
+ </body>
+</html>
