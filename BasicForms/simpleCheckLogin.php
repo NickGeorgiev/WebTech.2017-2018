@@ -12,6 +12,16 @@
 </header>
 <body>
 <?php
+function modifyInput(){
+  if(!empty($_POST)){
+    foreach ($_POST as $key => $value) {
+      $value = trim($value);
+      $value = stripcslashes($value);
+      $value = htmlspecialchars($value);
+    }
+  }
+}
+modifyInput();
 $errors = array();
 $groupName = [ "М","ПМ","ОКН","ЯКН"];
 if(strlen($_POST['courseName']) > 150 ){
