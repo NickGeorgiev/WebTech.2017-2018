@@ -17,17 +17,23 @@
   </style>
 </head>
 <body>
-<form action="modifyDatabase.php" method="post" target="_parent">
-  <input type="submit" value="Промени базата данни" />
-</form>
-<form action="addElective.php" method="post" target="_parent">
-  <label for="title">Име на курс:</label>
-  <input type="text" name="title" placeholder="име на курс" required /><br />
-  <label for="lecturer">Име на преподавател:</label>
-  <input type="text" name="lecturer" placeholder="име на преподавателя" required /><br />
-  <label for="description">Описание на курса:</label>
-  <textarea name="description" rows="3" cols="30" placeholder="Описание" required></textarea><br />
-  <input type="submit" value="Изпрати" />
-</form>
+<div>
+  <form action="#modifyDatabase.php" method="post">
+    <input type="submit" value="Промени базата данни" />
+  </form>
+</div>
+<div>
+  <form action="#addElective.php" method="post" target="_self">
+    <label for="title">Име на курс:</label>
+    <input type="text" name="title" placeholder="име на курс" required /><br />
+    <label for="lecturer">Име на преподавател:</label>
+    <input type="text" name="lecturer" placeholder="име на преподавателя" required /><br />
+    <label for="description">Описание на курса:</label>
+    <textarea name="description" rows="3" cols="30" placeholder="Описание" required></textarea><br />
+    <input type="submit" value="Изпрати" />
+  </form>
+</div>
+<div id="end_result">
+</div>
 </body>
 </html>
