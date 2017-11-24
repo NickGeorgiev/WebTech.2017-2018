@@ -1,5 +1,5 @@
 body{
-  margin:0;
+  margin:0 200px 0 100px;
   overflow-y: hidden;
 }
 .top{
@@ -11,17 +11,16 @@ body{
 }
 .top ul li{
   display: inline-block;
-  width: 150px;
-  height: 30px;;
+  box-shadow: 1px 1px gray;
+  width: auto;
+  height: 30px;
   float: right;
-  margin-top: 5px;
-  margin-bottom: 0;
-  margin-left: 20px;
-  margin-right: 20px;
-  background-color: green;
-  text-align: center;
+  margin: 10px 0px 0px 20px;
+  background-color: #99cc00;
   border-radius: 12px;
-  padding: 2px;
+  padding: 2px 20px 2px 20px;
+  line-height: 30px;
+  text-align: center;
 }
 .top ul li a{
   color: white;
@@ -41,9 +40,13 @@ body{
   list-style-type: none;
 }
 .navigation li{
+  padding-bottom: 10px;
   border-bottom: solid;
   border-width: 1.5px;
   border-color: gray;
+  height: 30px;
+  width: 100%;
+  line-height: 40px;
 }
 .navigation li a{
   margin-left: 5px;
@@ -52,9 +55,10 @@ body{
   display: block;
   font-size: 24px;
   text-decoration:none;
+  overflow-x: hidden;
 }
 .navigation li.active{
-  background-color: green;
+  background-color: #99cc00;
 }
 .navigation li.active a{
   color: white;
@@ -62,6 +66,101 @@ body{
 .content{
   height: 100vh;
   width: 70%;
-  background-color: green;
   display: inline-block;
+}
+.elective-content{
+  margin: 0;
+  padding: 0;
+}
+.elective-content h2{
+  margin: 0;
+  padding: 0 0 5px 0;
+  color: #99cc00;
+  font-size: 30px;
+  border-bottom: solid;
+  border-width: 2px;
+  border-color: gray;
+}
+.elective-content h3{
+  font-size: 24px;
+  font-weight: normal;
+}
+.elective-content p{
+  font-size: 20px;
+  overflow-x: auto;
+}
+.commit-comment{
+  margin: 0;
+  padding: 0;
+}
+.commit-comment textarea{
+  display: block;
+  width: 100%;
+  resize: none;
+  border-radius: 12px;
+  padding: 10px;
+}
+.commit-comment textarea::placeholder{
+  font-size: 18px;
+  color: gray;
+}
+.commit-comment ul{
+  display: inline-block;
+  margin: 10px 0 0 0;
+  padding: 0;
+  list-style-type:none;
+}
+.commit-comment ul li{
+  display:inline-block;
+  float: left;
+  margin-right: 10px;
+  background-color:white;
+  border-radius: 12px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: #99cc00;
+  line-height: 30px;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 2px 4px 2px 4px;
+}
+.commit-comment ul li.active{
+  background-color:#99cc00;
+}
+.commit-comment ul li.active a{
+  display: block;
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+}
+.commit-comment ul li a{
+  display: block;
+  color: #99cc00;
+  font-size: 18px;
+  text-decoration: none;/*FIX IT!!!!!!!*/
+}
+.comments{
+  padding: 0;
+  margin: 0;
+}
+.comments h3{
+  font-size: 24px;
+  font-weight: normal;
+}
+.comments span.comment{
+  display: block;
+  border-bottom: solid;
+  padding-bottom: 5px;
+  border-width: 2px;
+  border-color: gray;
+}
+.author{
+  font-size: 15px;
+}
+.author a{
+  font-size: 24px;
+}
+span.comment p{
+  font-size: 18px;
 }
