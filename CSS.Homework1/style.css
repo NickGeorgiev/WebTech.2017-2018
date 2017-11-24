@@ -1,0 +1,67 @@
+body{
+  margin:0;
+  overflow-y: hidden;
+}
+.top{
+  height: 5vh;
+}
+.top ul{
+  margin:0;
+  list-style-type: none;
+}
+.top ul li{
+  display: inline-block;
+  width: 150px;
+  height: 30px;;
+  float: right;
+  margin-top: 5px;
+  margin-bottom: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: green;
+  text-align: center;
+  border-radius: 12px;
+  padding: 2px;
+}
+.top ul li a{
+  color: white;
+  font-size: 18px;
+  text-decoration: none;/*FIX IT!!!!!!!*/
+}
+.navigation{
+  height:100vh;
+  width:30%;
+  float: left;
+  display: inline-block;
+
+}
+.navigation ul{
+  margin-top: 0;
+  margin-right: 30px;
+  list-style-type: none;
+}
+.navigation li{
+  border-bottom: solid;
+  border-width: 1.5px;
+  border-color: gray;
+}
+.navigation li a{
+  margin-left: 5px;
+  margin-right: 5px;
+  color: gray;
+  display: block;
+  font-size: 24px;
+  text-decoration:none;
+}
+.navigation li.active{
+  background-color: green;
+}
+.navigation li.active a{
+  color: white;
+}
+.content{
+  height: 100vh;
+  width: 70%;
+  background-color: green;
+  display: inline-block;
+}
