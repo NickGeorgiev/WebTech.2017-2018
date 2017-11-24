@@ -33,7 +33,21 @@
     <input type="submit" value="Изпрати" />
   </form>
 </div>
-<div id="end_result">
+<div>
+  <h2>Промяна на данни за изоборна дисциплина</h2>
+  <p>
+    Моля въведете името на изборната дисциплина, която желаете да промените. Ако съществува запис за посочената изборна дисциплина,<br />
+    то информацията ще бъде променена съгласно нововъведените данни във формата по-долу.
+  </p><br />
+  <form action="updateElective.php" method="post" target="_self">
+    <label for="title">Име на курс:</label>
+    <input type="text" name="title" placeholder="име на курс" required /><br />
+    <label for="lecturer">Име на преподавател:</label>
+    <input type="text" name="lecturer" placeholder="име на преподавателя" required /><br />
+    <label for="description">Описание на курса:</label>
+    <textarea name="description" rows="3" cols="30" placeholder="Описание" required></textarea><br />
+    <input type="submit" value="Промени" />
+  </form>
 </div>
 </body>
 </html>
