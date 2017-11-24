@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Elective Course ADD Form</title>
+  <title>Elective Course Update Form</title>
   <meta charset="utf-8" />
   <style>
     label{
@@ -18,19 +18,19 @@
 </head>
 <body>
 <div>
-  <form action="modifyDatabase.php" method="post">
-    <input type="submit" value="Промени базата данни" />
-  </form>
-</div>
-<div>
-  <form action="addElective.php" method="post" target="_self">
+  <h2>Промяна на данни за изоборна дисциплина</h2>
+  <p>
+    Моля въведете името на изборната дисциплина, която желаете да промените. Ако съществува запис за посочената изборна дисциплина,<br />
+    то информацията ще бъде променена съгласно нововъведените данни във формата по-долу.
+  </p><br />
+  <form action="updateElective.php" method="post" target="_self">
     <label for="title">Име на курс:</label>
     <input type="text" name="title" placeholder="име на курс" required /><br />
     <label for="lecturer">Име на преподавател:</label>
     <input type="text" name="lecturer" placeholder="име на преподавателя" required /><br />
     <label for="description">Описание на курса:</label>
     <textarea name="description" rows="3" cols="30" placeholder="Описание" required></textarea><br />
-    <input type="submit" value="Изпрати" />
+    <input type="submit" value="Промени" />
   </form>
 </div>
 </body>
