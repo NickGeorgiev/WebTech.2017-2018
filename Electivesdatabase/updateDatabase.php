@@ -2,7 +2,6 @@
   require_once("validateForm.php");
 
   $database = new PDO("mysql:host=localhost;dbname=electives","root","");
-  $existCheck = $database->prepare("SELECT * FROM electives where title = ?");
   $addQuery = $database->prepare("UPDATE electives  SET title=:title, description=:description, lecturer=:lect where title=:title");
   $addQuery->bindParam(':title',$title);
   $addQuery->bindParam(':description',$description);
@@ -13,10 +12,7 @@
     $title = $data['title'];
     $description = $data['description'];
     $lecturer = $data['lecturer'];
-    $existCheck->execute(array($title));
-    if($existCheck->fetch()){
-      $addQuery->execute() or die("Fail");
-    }
+    $addQuery->execute() or die("Fail");
   }
   else $input->show_errors();
   $database = null;
