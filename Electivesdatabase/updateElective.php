@@ -25,7 +25,6 @@
     $existCheck->bindParam(':title',$title);
     $existCheck->execute();
     if($retrievedData=$existCheck->fetch(PDO::FETCH_ASSOC)){
-      echo $retrievedData['lecturer'];
       echo '<form action="updateDatabase.php" method="post" target="_self">'."\n";
       echo '<label for="title">Име на курс:</label>'."\n";
       echo '<input type="text" name="title" placeholder="име на курс" value ="'.$retrievedData['title'].'" required /><br />'."\n";
