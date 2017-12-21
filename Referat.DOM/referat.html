@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DOM Tree</title>
+  <link href="./css/style.css" rel="stylesheet" type="text/css">
+  <link href="./css/prism.css" rel="stylesheet" type="text/css">
+  <script src="prism.js"></script>
+  <meta charset="utf-8">
+  <meta lang="bg" />
+</head>
+<body>
+
+  <div class="navigation">
+
+    <ul id="nav">
+      <li ><a href="#intro">1. Какво всъщност представлява DOM?</a></li>
+      <!--<li><a href="#domSt">1.1. DOM като стандарт</a></li>-->
+      <!--<li><a href="#cssDOM">1.2. CSSOM</a></li>-->
+      <li><a href="#domTree">2. DOM дърво</a></li>
+      <li><a href="#autoCorrect">3. Autocorrection</a></li>
+      <li><a href="#domTrBr">4. Изобразяване на DOM дървото в браузъра</a></li>
+      <li><a href="#domWalk">5. Обхождане на DOM дървото</a></li>
+      <!--<li><a href="#domMis">5.1. Несъществуващи елементи</a></li>-->
+      <!--<li><a href="#child">5.2. Деца и наследници</a></li>-->
+      <!--<li><a href="#elemOnly">5.3. Обхождане само на елементи</a></li>-->
+      <li><a href="#editTree">6. Промяна на съдържанието на документ</a></li>
+      <!--<li><a href="#creatElem">6.1. Създаване на елемент</a></li>-->
+      <!--<li><a href="#addElem">6.2. Добавяне на елемент в DOM дървото</a></li>-->
+      <!--<li><a href="#cloneElem">6.3. Клониране на елемент</a></li>-->
+      <!--<li><a href="#remElem">6.4. Премахване на елемент</a></li>-->
+      <!--<li><a href="#solution">6.5. Решението на задачата от началото на точката</a></li>-->
+      <li><a href="#conclusion">7. Заключение</a></li>
+      <li><a href="#resources">8. Използвана литература</a></li>
+      <li><a href="#resources">9. Списък с код и фигури</a></li>
+    </ul>
+    <a href="#intro"><img src="./img/treeWhite.png" alt="Tree picture"/></a>
+  </div>
+  <div class="content">
+    <h1>DOM дърво, обхождане и манипулация</h1>
+    <div  id="intro">
+      <p class="sectionName">1. Какво всъщност представлява DOM?</p>
+      <p class="textContent">Document object model (накратко DOM) е универсален интерфейс, който позволява на различни програми и скриптове динамично да
+        достъпват и да променят съдържанието, структурата и стила на даден документ. Той е част от Browser object model (BOM), който предоставя
+        интерфейс за комуникация с браузъра посредством JavaScript. На фигурата по-долу е представена структурата му от птичи поглед.</p><br />
+      <img src="./img/BOM.png" alt="BOM tree view" id="1" /><br />
+      <p class="caption">Фиг.1 BOM от птичи поглед</p>
+      <p class="textContent">Предметът на този реферат е клонът, който е с начало обекта <b><i>document</i></b>. Съдейки по името на модела съдържанието на една страница се представя като съвкупност от обекти и функции за работа с тях.
+        Към настоящия момент има две основни организации, които се занимават с публикуването и развитието на документацията към DOM модела: <a href="https://www.w3.org/" target="_blank">W3C</a>,<a href="https://whatwg.org/" target="_blank">WhatWG</a>. <br />Зачитайки се в документациите, които те разработват можем да забележим, че има известни разлики, но
+        и двете са тясно свързани една с друга и имаме приблизително 99% съвпадение.</p>
+    </div>
+    <div  id="domSt">
+      <p class="sectionName">1.1. DOM като стандарт</p>
+      <p class="textContent">В началото е нямало никакъв стандарт - всеки браузър е имал свой собствен интерфейс. Това е налагало уеб страниците да имат различни версии за
+        съответния браузър. След появата на DOM, интерфейсите биват унифицирани. По настоящем се използва четвъртата версия на DOM стандарта (DOM Level 4 според W3C, докато WhatWG използват просто наименованието DOM).
+        <br />Важен за отбелязване е и фактът, че DOM моделът не е обособен само за работа с браузъра. Тъй като той описва структурата на даден документ и функциите, с които можем да го манипулираме, съществуват и други видове инструменти, които го използват.
+        Например сървърните инструменти, чрез които можем да свалим определена HTML страница и да я обработим.</p>
+    </div>
+    <div  id="cssDOM">
+      <p class="sectionName">1.2. CSSOM</p>
+      <p class="textContent">Тъй като CSS правилата не са структурирани както HTML съдържанието, съществува отделна спецификация,
+         която ги описва като отделни обекти, наречена <b><i>CSSOM</i></b>.
+         Този модел се използва заедно с DOM, когато променяме стиловите правила за даден документ.</p>
+    </div>
+    <div  id="domTree">
+      <p class="sectionName">2. DOM дърво</p>
+      <p class="textContent">Основните елементи на една HTML страница са таговете. Съгласно DOM модела, всеки таг е обект. Вложените тагове се наричат "деца" на съдържащия ги. Дори и текст, който се намира вътре в даден таг също се счита за обект.
+        По този начин се изгражда така нареченото DOM дърво. Всички обекти от това дърво са достъпни с помощта на JavaScript.</p>
+      <p class="textContent"><b>Пример:</b> Нека имаме следната HTML страница</p>
+      <pre class="language-markup" id="2">
+        <code class="language-markup">
+          &lt;!DOCTYPE html>
+          &lt;html>
+          &lt;head>
+            &lt;link href="style.css" rel="stylesheet" type="text/css">
+            &lt;meta charset="utf-8">
+          &lt;/head>
+          &lt;body>
+            &lt;div class="top">
+            &lt;ul>
+              &lt;li>&lt;a href="#">Регистрация&lt;/a>&lt;/li>
+              &lt;li>&lt;a href="#">Вход&lt;/a>&lt;/li>
+
+            &lt;/ul>
+            &lt;/div>
+            &lt;div class="navigation">
+              &lt;ul>
+                &lt;li class="active">&lt;a href="#">Компютърна графика с WEBGL&lt;/a>&lt;/li>
+                &lt;li>&lt;a href="#">Програмиране с GO&lt;/a>&lt;/li>
+                &lt;li>&lt;a href="#">Програмиране с RUBY&lt;/a>&lt;/li>
+                &lt;li>&lt;a href="#">AGILE&lt;/a>&lt;/li>
+              &lt;/ul>
+            &lt;/div>
+          &lt;/body>
+
+          &lt;/html>
+        </code>
+      </pre>
+      <p class="caption">Код 1. Примерен код на HTML страница</p>
+      <p class="textContent"> На снимката по-долу виждаме структурата на DOM дървото, изградено на базата на кода по-горе.</p>
+      <img src="./img/domTree.jpg" alt="DOM tree view" id="3" />
+      <p class="caption">Фиг.2 DOM изглед на страницата</p>
+      <p class="textContent">Всеки таг е елемент на дървото като още се нарича <b><i>elemen node</i></b>. Текстът във всеки един таг формира т.нар. <b><i>text node</i></b>.
+        Той съдържа само символен низ. Може да няма деца и в повечето случаи представлява листо на нашето дърво.<br />
+        Важна за отбелязване особеност са специалните символи - <i>newline</i> и <i>space</i>. Те са напълно коректни символи и се представят от <b><i>text node</i></b>, като стават отделна част от структурата на дървото.
+        Съществуват две изключения:</p>
+      <ul>
+          <li class="textContent">Ако имаме подобни символи преди <code class="language-html" style="font-size:18px">&lt;head></code> тага, то те се игнорират по исторически причини;</li>
+          <li class="textContent">Ако сложим нещо след <code class="language-html" style="font-size:18px">&lt;body></code> тага, то автоматично ще бъде включено в тялото на страницата ни.</li>
+      </ul>
+      <p class="textContent">Затова и няма как да имаме празни символи след като сме затворили тялото на страницата.</p>
+    </div>
+    <div  id="autoCorrect">
+      <p class="sectionName">3. Autocorrection</p>
+      <p class="textContent">Ако браузърът срещне някаква малформация в HTML кода, той автоматично го поправя, когато изгражда DOM дървото.
+        Нека да имаме следният код:
+        <pre class="language-markup" id="4">
+          <code class="language-markup">
+            &lt;!DOCTYPE html>
+            &lt;head>
+              &lt;link href="style.css" rel="stylesheet" type="text/css">
+              &lt;meta charset="utf-8">
+            &lt;/head>
+            &lt;body>
+              &lt;div class="top">
+              &lt;ul>
+                &lt;li>&lt;a href="#">Регистрация&lt;/a>&lt;/li>
+                &lt;li>&lt;a href="#">Вход&lt;/a>&lt;/li>
+              &lt;/ul>
+              &lt;/div>
+            &lt;/body>
+          </code>
+        </pre>
+        <p class="caption">Код 2. Проста уеб страница</p>
+        <img src="./img/domTree2.jpg" alt="DOM tree view" id="5" />
+        <p class="caption">Фиг.3 DOM изглед на страницата</p>
+        <p class="textContent">Виждаме, че въпреки липсата на <code class="language-html" style="font-size:18px">&lt;html></code> тага,
+        той присъства като елемент от DOM дървото. Обикновено когато генерира структурата на дадена страница,
+        браузърът автоматично обработва грешките в съдържанието като затваря незатворени тагове и т.н.</p>
+    </div>
+    <div  id="domTrBr">
+      <p class="sectionName">4. Изобразяване на DOM дървото в браузъра</p>
+      <p class="textContent">Един от начините да разгледаме DOM дървото на дадена уеб страница е като използваме <b><i>browser developer tools</i></b> на съответния браузър.
+          Като пример ще разгледаме DOM дървото на страницата на ФМИ.</p>
+      <img src="./img/domBrowser.jpg" alt="DOM view in Browser" id="6" />
+      <p class="caption">Фиг.4. DOM структурата в браузър</p>
+      <p class="textContent">Както се вижда на снимката DOM структурата на сайта е показан в секцията <b><i>Elements</i></b>. Като имаме възможност да видим атрибутите на таговете, както и тяхното конкретно съдържание.
+          Имаме възможност да наблюдаваме даже и стиловото оформление.</p>
+    </div>
+    <div  id="domWalk">
+      <p class="sectionName">5. Обхождане на DOM дървото</p>
+      <p class="textContent">Използвайки стандарта имаме възможност да оперираме с елементите на нашия документ - както с тяхното съдържание, така и със стиловото им оформление.
+          За целта, обаче, трябва първо да достигнем до елемента, който желаем да променим, да го прихванем с помощта на променлива и след това да извършим желаните промени.
+            Всички операции с DOM започват със обекта <b><i>document</i></b>. От него можем да достъпим всеки един възел от дървото. </p>
+      <pre class="language-javascript" id="7">
+        <code class="language-javascript">
+          &lt;script>
+          let html = document.documentElement; // documentElement връща най-близкия наследник на обекта document в DOM дървото, който всъщност е html обектът
+          let body = document.body; // за основните елементи на една страница има готови опции, които връщат тяхното съдържание - може да не съществува все още и да бъде със стойност null
+          let head = document.head;
+          &lt;/script>
+        </code></pre>
+        <p class="caption">Код 3. Селектиране на основни елементи от дървото</p>
+    </div>
+    <div  id="domMis">
+      <p class="sectionName">5.1. Несъществуващи елементи</p>
+      <p class="textContent">Нека започнем с обхождане на основните елементи на една HTML страница. Първият елемент в страницата или по друг начин казано
+        най-близкият наследник на <b><i>document</i></b> обекта можем да достъпим чрез опцията <code class="language-javascript" style="font-size:18px">document.documentElement</code>. Обикновено това е <code class="language-markup" style="font-size:18px">&lt;html></code> тага.
+        Друг широко използван елемент е тялото на нашата страница, а именно <code class="language-javascript" style="font-size:18px">document.body</code>. Тук обаче идва и уловката, а именно, че той може да върне стойност null. С други думи тялото на страницата ни може да бъде празно.
+        Тогава скриптът не може да обработи такъв елемент, защото значението на null е буквално, че нещо "не съществува".
+        Затова е необходимо да се подсигурим, че когато оперираме с даден обект, той действително съществува.</p>
+      <pre class="language-markup" id="8">
+        <code class="language-markup">
+          &lt;!DOCTYPE html>
+          &lt;html>
+          &lt;head>
+          &lt;script>
+            alert("Executing from head tag and the body tag is "+document.body);
+          &lt;/script>
+          &lt;/head>
+          &lt;body>
+            &lt;script>
+              alert("Executing from body tag to test body and it is "+document.body);
+              alert("Executing from body tag to test head tag and it is "+document.head);
+            &lt;/script>
+          &lt;/body>
+          &lt;/html>
+        </code>
+      </pre>
+      <p class="caption">Код 4. Тестване за наличност на елементите</p>
+    </div>
+    <div  id="child">
+      <p class="sectionName">5.2. Деца и наследници</p>
+      <p class="textContent">Под "дете" ще разбираме всеки пряк наследник на даден обект, а под "наследници" ще разбираме всички елементи, които се съдържат в съответния обект (с други думи tag).
+        Колекцията <code class="language-javascript" style="font-size:18px">childNodes</code> ни дава достъп до всички деца, включително и <b><i>text nodes</i></b>.<br />В примера по-долу обхождаме преките деца на тялото на страницата:</p>
+      <pre class="language-markup" id="9">
+        <code class="language-markup">
+          &lt;!DOCTYPE html>
+          &lt;html>
+          &lt;head>
+          &lt;/head>
+          &lt;body>
+            &lt;p>Start paragraph&lt;/p>
+            &lt;ul>
+            &lt;li>List item 1&lt;/li>
+            &lt;li>List item 2&lt;/li>
+            &lt;li>List item 3&lt;/li>
+            &lt;/ul>
+            &lt;div>
+              End
+            &lt;/div>
+            &lt;script>
+              for(let indx=0;indx&lt;document.body.childNodes.length;indx++){
+                alert(document.body.childNodes[indx]);// div,text,script...every child
+              }
+            &lt;/script>
+          &lt;/body>
+          &lt;/html>
+        </code>
+      </pre>
+      <p class="caption">Код 5. Извеждане на елементите в тялото на страницата</p>
+      <p class="textContent">Атрибутите <code class="language-javascript" style="font-size:18px">firstChild</code>, <code class="language-javascript" style="font-size:18px">lastChild</code> ни дават бърз достъп до първото и последното дете на нашият обект.
+        Има редица функции, които са предназначени за работа с колекцията <code class="language-javascript" style="font-size:18px">childNodes</code> като <code class="language-javascript" style="font-size:18px">childNodes.length</code>, която връща броят на децата, <code class="language-javascript" style="font-size:18px">hasChildNodes()</code>, която проверява дали даден елемент има деца и т.н.</p>
+    </div>
+    <div  id="elemOnly">
+      <p class="sectionName">5.3. Обхождане само на елементи</p>
+      <p class="textContent">Използвайки колекцията <code class="language-javascript" style="font-size:18px">childNodes</code> ние се обръщаме до всички деца на даден елемент. За някои цели, обаче, е необходимо да обходим само тези елементи, които изобразяват HTML таговете.За целта използваме същата функционалност, която прилагаме към останалите колекции от деца, но в имената на функциите и атрибутите фигурира името <b><i>Element:</i></b></p>
+      <ul>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">children</code> - използваме за всички обекти, които са <b><i>element nodes</i></b>;</p></li>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">firstElementChild</code>, <code class="language-javascript" style="font-size:18px">lastElementChild</code> - първи и последен елемент на колекцията <code class="language-javascript" style="font-size:18px">children</code>;</p></li>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">previousElementSibling</code>, <code class="language-javascript" style="font-size:18px">nextElementSibling</code> - съседните елементи от колекцията <code class="language-javascript" style="font-size:18px">children</code>;</p></li>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">parentElement</code> - родителят от тип <b><i>elementNode</i></b>.</p></li>
+      </ul>
+    </div>
+    <div  id="editTree">
+      <p class="sectionName">6. Промяна на съдържанието на документ</p>
+      <p class="textContent">Както вече няколко пъти споменахме, DOM моделът е средство за представяне и обработване на съдържанието на даден документ. Вече разгледахме представянето на една страница под формата на DOM дърво, както и средства за обхождането му. Тук ще се съсредоточим въхру промяна на съдържанието на документа, което от своя страна води и до промяна на структурата на DOM дървото. <br /><br /><b><i>Разглеждаме следния тестови пример:</i></b><br /> Искаме да добавим нов навигационен линк в менюто на нашия реферат. Нека нашата навигация да бъде представена като неподреден списък, към който е добавено някакво стилово оформление. Едно решение на нашата задача е да добавим нов списъчен елемент, който да представя нашата нова връзка. Тук обаче няма да направим това, а ще използваме JavaScript, за да променим DOM дървото на нашата страница и да решим задачата, която си поставихме.</p>
+    </div>
+    <div  id="creatElem">
+      <p class="sectionName">6.1. Създаване на елемент</p>
+      <p class="textContent">Първата стъпка, която трябва да направим е да създаден нашия обект, който ще добавяме към DOM дървото. За целта можем да приложим няколко метода:<br /></p>
+      <ul>
+        <li><p class="textContent">Първият метод е чрез функцията <code class="language-javascript" style="font-size:18px">createElement(tag)</code>. Тя създава нов елемент с посочения като параметър таг;</p></li>
+        <li><p class="textContent">Вторият метод се отнася за <b><i>text node</i></b> обект, който можем да създадем посредством функцията <code class="language-javascript" style="font-size:18px">createTextNode(text)</code>, като <b><i>text</i></b> е символен низ;</p></li>
+      </ul>
+      <p class="textContent"> В нашия случай искаме да създадем обект, представящ <code class="language-markup" style="font-size:18px">&lt;a></code> тага, затова вторият метод не е напълно удачен. След като създадем обекта, следва да му добавим съответните атрибути, както и да му добавим съдържание.</p>
+      <pre class="language-javascript" id="10">
+        <code class="language-javascript">
+          &lt;script>
+          function addLink(){
+            let liTag = document.createElement('li');
+            liTag.id = "newLink";
+            liTag.innerHTML = "&lt;a href='#'>Видяхте ли ме?&lt;/a>";
+          }
+          &lt;/script>
+        </code>
+      </pre>
+        <p class="caption">Код 6. Създаване на новия елемент</p>
+    </div>
+    <div  id="addElem">
+      <p class="sectionName">6.2. Добавяне на елемент в DOM дървото</p>
+      <p class="textContent">След като сме създали нашия обект, следва да то добавим към структурата на вече изграденото DOM дърво. Ако искаме да добавим елемента в тялото на документа, можем да използваме специалната за това функция на обекта <b><i>body</i></b>, а именно
+          <code class="language-javascript" style="font-size:18px">document.body.appendChild(node)</code> - тя добавя посочения като параметър обект като последно дете на тялото. В нашия случай, обаче, трябва да добавим елемента в наследник на тялото на страницата което прави тази функция неудачна за употреба.
+            За целта ще използваме други функции:</p>
+      <ul>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">рarentElem.appendChild(node)</code> - добавя <b><i>node</i></b> като последен наследник на <b><i>parentElem</i></b></p></li>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">parentElem.insertBefore(node, nextSibling)</code> - добавя <b><i>node</i></b> преди наследника <b><i>nextSibling</i></b> в <b><i>parentElem</i></b>;</p></li>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">parentElem.replaceChild(node, oldChild)</code> - заменя <b><i>node</i></b> с <b><i>oldChild</i></b> измежду наследниците на <b><i>parentElem</i></b>;</p></li>
+      </ul>
+      <p class="textContent">С оглед на това да бъдем изчерпателни ще добавим, че ако искаме да бъдем по-гъвкави в добавянето на елементи, можем да използваме следните функции:</p>
+      <ul>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">node.append(...nodes or strings)</code> - добавя параметрите на функцията в края на <b><i>node</i></b>;</p></li>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">node.prepend(...nodes or strings)</code> - добавя параметрите на функцията в началото на <b><i>node</i></b>;</p></li>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">node.before(...nodes or strings)</code> - добавя параметрите на функцията преди <b><i>node</i></b>;</p></li>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">node.after(...nodes or strings)</code> - добавя параметрите на функцията след <b><i>node</i></b>;</p></li>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">node.replaceWith(...nodes or strings)</code> - заменя <b><i>node</i></b> с параметрите на функцията.</p></li>
+      </ul>
+      <p class="textContent">Друг интересен метод за добавяне на елемент е и функцията <code class="language-javascript" style="font-size:18px">elem.insertAdjacentHTML(where, html)</code>, която добява елемента, представен от параметъра <b><i>html</i></b> под формата на символен низ, на мястото, указано от параметъра <b><i>where</i></b>, спрямо обекта <b><i>elem</i></b>. Възможностите за <b><i>where</i></b> са следните:</p>
+      <ul>
+        <li><p class="textContent"><b><i>"beforebegin"</i></b> – добавя <b><i>html</i></b> преди началото на <b><i>elem</i></b>;</p></li>
+        <li><p class="textContent"><b><i>"afterbegin"</i></b> – добавя <b><i>html</i></b> като първи елемент след началото на <b><i>elem</i></b>;</p></li>
+        <li><p class="textContent"><b><i>"beforeend"</i></b> – добавя <b><i>html</i></b> като последен за <b><i>elem</i></b>;</p></li>
+        <li><p class="textContent"><b><i>"afterend"</i></b> – добавя <b><i>html</i></b> след края на <b><i>elem</i></b>;</p></li>
+      </ul>
+      <pre class="language-javascript" id="11">
+        <code class="language-javascript">
+          //... &lt;ul id="nav">...
+          &lt;script>
+          function addLink(){
+            let liTag = document.createElement('li');
+            liTag.id = "newLink";
+            liTag.innerHTML = "&lt;a href='#'>Видяхте ли ме?&lt;/a>";// създали сме го в предишният пример, остава да го добавим
+            nav.appendChild(liTag);// нашият списък е с id = nav
+          }
+          &lt;/script>
+        </code>
+      </pre>
+        <p class="caption">Код 7. Добавяне на елемента от преди малко</p>
+    </div>
+    <div  id="cloneElem">
+      <p class="sectionName">6.3. Клониране на елемент</p>
+      <p class="textContent">За целта използваме функцията <code class="language-javascript" style="font-size:18px">elem.cloneNode(param)</code>, която в зависимост от стойността на <b><i>param</i></b> може да клонира:
+	         всички атрибути и съдържащи се елементи на <b><i>elem</i></b>, ако <b><i>param=true</i></b> или само конкретния елемент, без неговите деца, ако <b><i>param=false</i></b>.</p>
+    </div>
+    <div  id="remElem">
+      <p class="sectionName">6.4. Премахване на елемент</p>
+      <p class="textContent">Имаме две възможности:</p>
+      <ul>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">parentElem.removeChild(node)</code>- премахва <b><i>node</i></b> от <b><i>parentElem</i></b>, ако той е негово дете;</p></li>
+        <li><p class="textContent"><code class="language-javascript" style="font-size:18px">node.remove()</code>- премахва <b><i>node</i></b> от неговото място.</p></li>
+      </ul>
+      <p class="textContent">Важно е да отбележим, че ако искаме да преместим даден елемент, то при преместването се извършва автоматично премахване на елемента от предишното му място в DOM дървото.</p>
+      <pre class="language-javascript" id="12">
+        <code class="language-javascript">
+          &lt;script>
+          function remove(){
+            let elem = document.getElementById('newLink');// избираме елемента с идентификатор newLink
+            elem.parentNode.removeChild(elem);// or elem.remove();
+          }
+          &lt;/script>
+        </code>
+      </pre>
+        <p class="caption">Код 8. Премахване на елемента от примера ни</p>
+    </div>
+    <div  id="solution">
+      <p class="sectionName">6.5. Решението на задачата от началото на точката</p>
+      <p class="textContent">След като споменахме методите за създаване, добавяне, премахване и клониране на елементи, нека се върнем обратно на примера и да видим до къде стигнахме.<br />
+        Целият код, събран на едно място би изглеждал така:</p>
+        <pre class="language-javascript" id="13">
+          <code class="language-javascript">
+            &lt;script>
+            function addLink(){
+              let liTag = document.createElement('li');
+              liTag.id = "newLink";
+              liTag.innerHTML = "&lt;a href='#'>Видяхте ли ме?&lt;/a>";
+              nav.appendChild(liTag);
+            }
+            function remove(){
+              let elem = document.getElementById('newLink');
+              elem.parentNode.removeChild(elem);
+            }
+            &lt;/script>
+          </code>
+        </pre>
+        <p class="caption">Код 9. Всичко заедно</p>
+      <p class="textContent">За да видите резултата от изпълнението на кода, използвайте бутоните по-долу.</p>
+      <button id="add" onclick="addLink()">Do the magic!</button>
+      <button id="rem" onclick="remove()">Kill it!</button></div>
+    <div id="conclusion">
+    <p class="sectionName">7. Заключение</p>
+    <p class="textContent">Като заключение можем да кажем, че DOM моделът е изключително силно средство за работа със съдържанието на даден документ.<br /> С негова помощ можем динамично да променяме както смисъла, така и стила на
+    на една страница с помощта на JavaScript. По този начин увеличаваме гъвкавостта ѝ и улесняваме лесната машинна обработка, която може да бъде извършваша. Също така за хората, които са запознати с ООП парадигмата, до голяма степен биха се чувствали комфортно да работят съгласно DOM стандарта, тъй като е налице известна прилика.</p>
+    </div>
+    <div id="resources">
+      <p class="sectionName">8. Използвана литература</p>
+      <p class="textResource">[1] "Browser: Document, Events, Interfaces"</p>
+      <p class="textResource">[<a href="http://javascript.info/ui" target="_blank">http://javascript.info/ui</a>]</p>
+      <p class="textResource">последно посетен на 9.12.2017г.</p><br />
+      <p class="textResource">[2] "Document Object Model (DOM)"</p>
+      <p class="textResource">[<a href="https://www.w3.org/DOM/" target="_blank">https://www.w3.org/DOM/</a>]</p>
+      <p class="textResource">последно посетен на 9.12.2017г.</p><br />
+      <p class="sectionName">Други ресурси</p>
+      <p class="textResource">[1] "Prism Syntax Highlighter за изобразяване на примерен код"</p>
+      <p class="textResource">[<a href="http://prismjs.com/index.html" target="_blank">http://prismjs.com</a>]</p>
+      <p class="textResource">последно посетен на 8.12.2017г.</p><br />
+      <p class="textResource">[2] "Live DOM Viewer за визуализацията на DOM дърво за примерите"</p>
+      <p class="textResource">[<a href="http://software.hixie.ch/utilities/js/live-dom-viewer/" target="_blank">http://software.hixie.ch/utilities/js/live-dom-viewer/</a>]</p>
+      <p class="textResource">последно посетен на 8.12.2017г.</p><br />
+    </div>
+    <div id="figures">
+      <p class="sectionName">9. Списък с код и фигури</p>
+      <ul>
+        <li><p class="textContent"><a href="#1">Фиг.1 BOM от птичи поглед</a></p></li>
+        <li><p class="textContent"><a href="#2">Код 1. Примерен код на HTML страница</a></p></li>
+        <li><p class="textContent"><a href="#3">Фиг.2 DOM изглед на страницата</a></p></li>
+        <li><p class="textContent"><a href="#4">Код 2. Проста уеб страница</a></p></li>
+        <li><p class="textContent"><a href="#5">Фиг.3 DOM изглед на страницата</a></p></li>
+        <li><p class="textContent"><a href="#6">Фиг.4. DOM структурата в браузър</a></p></li>
+        <li><p class="textContent"><a href="#7">Код 3. Селектиране на основни елементи от дървото</a></p></li>
+        <li><p class="textContent"><a href="#8">Код 4. Тестване за наличност на елементите</a></p></li>
+        <li><p class="textContent"><a href="#9">Код 5. Извеждане на елементите в тялото на страницата</a></p></li>
+        <li><p class="textContent"><a href="#10">Код 6. Създаване на новия елемент</a></p></li>
+        <li><p class="textContent"><a href="#11">Код 7. Добавяне на елемента от преди малко</a></p></li>
+        <li><p class="textContent"><a href="#12">Код 8. Премахване на елемента от примера ни</a></p></li>
+        <li><p class="textContent"><a href="#13">Код 9. Всичко заедно</a></p></li>
+      </ul>
+    </div>
+  <script>
+    function addLink(){
+      let liTag = document.createElement('li');
+      liTag.id = "newLink";
+      liTag.innerHTML = "<a href='#'>Видяхте ли ме?</a>";
+      nav.appendChild(liTag);
+      let message = document.createElement('p');
+      message.className = "textContent";
+      message.id = "toBeRemoved";
+      message.innerHTML = "В случай че не сте забелязали, погледнете менюто.";
+      solution.appendChild(message);
+    }
+    function remove(){
+      let elem = document.getElementById('newLink');
+      let tempMess = document.getElementById('toBeRemoved');
+      elem.parentNode.removeChild(elem);
+      tempMess.remove();
+    }
+  </script>
+</body>
+
+</html>

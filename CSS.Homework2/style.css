@@ -1,0 +1,41 @@
+.formHolder{
+  background-color: #F5F5F0;
+  width: 20vw;
+  margin: auto;
+}
+.customForm{
+  border-style: solid;
+  border-width: 1px;
+  border-top: none;
+  border-color: black;
+  padding: 20px;
+}
+.customForm input{
+  width: 100%;
+  box-sizing: border-box;
+  margin:10px 0px 10px 0px;
+  height:30px;
+  border-style: solid;
+  border-width: 1px;
+  padding-left: 5px;
+  border-color: lightgray;
+}
+p{
+  margin: 0;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  font-size: 24px;
+  color: white;
+  background-color: #99cc00;
+}
+.customForm input[type=submit]{
+  background-color: #99cc00;
+  color: white;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
