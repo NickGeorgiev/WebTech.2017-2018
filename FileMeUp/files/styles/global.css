@@ -1,0 +1,111 @@
+
+/* Color palette:
+  #222629- background
+  #25274D
+  #464866
+  #AAABB8
+  #2E9CCA
+  #29648A
+*/
+body{
+  background-color: #222629;
+  margin:0;
+  padding: 0;
+}
+header.siteLogo{
+  float: left;
+}
+.siteLogo p{
+  padding: 15px 10px;
+  margin:0;
+  color: white;
+  font-family: arial;
+  font-size: 30px;
+}
+nav.siteNavigation{
+  width: 100%;
+  height:58px;
+  background-color: #3b3e42;
+}
+.siteNavigation ul{
+  margin: 0;
+}
+.siteNavigation ul#leftMenu{
+  padding: 0 0 0 10px;
+  float: left;
+}
+.siteNavigation ul#leftMenu li{
+  float: left;
+  list-style: none;
+  position: relative;
+}
+.siteNavigation ul#leftMenu li a{
+  display: block;
+  padding: 20px 5px 15px 5px;
+  color: white;
+  font-family: arial;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.siteNavigation ul#leftMenu li ul{
+  background-color: #3b3e42;
+  display: block;
+  position: absolute;
+  padding: 0;
+  border-radius: 0 0 5px 5px;
+}
+.siteNavigation ul#leftMenu li ul li{
+  width: 180px;
+}
+.siteNavigation ul#leftMenu li ul li a{
+  display: block;
+  padding: 20px 10px;
+  color: white;
+  font-family: arial;
+  font-size: 20px;
+  text-decoration: none;
+}
+.siteNavigation  a:hover{
+  background-color: #111111;
+}
+.siteNavigation ul#rightMenu{
+  padding: 0 0px 0 0;
+  float: right;
+}
+.siteNavigation ul#rightMenu li{
+  float: left;
+  list-style: none;
+  padding: 0 10px;
+  position: relative;
+}
+.siteNavigation ul#rightMenu li p{
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+}
+.siteNavigation ul#rightMenu li img{
+  padding: 5px 10px 0 0;
+  width: 50px;
+  height: auto;
+}
+.siteNavigation ul#rightMenu li ul{
+  background-color: #3b3e42;
+  position: absolute;
+  right: 0;
+  border-radius: 0 0 5px 5px;
+}
+.siteNavigation ul#rightMenu li ul li{
+  display: block;
+}
+.siteNavigation ul#rightMenu li ul li a{
+  display: block;
+  padding: 10px 20px;
+  color: white;
+  font-family: arial;
+  font-size: 20px;
+  text-decoration: none;
+}
+a.active{
+  background-color: black;
+}

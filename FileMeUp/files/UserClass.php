@@ -1,6 +1,11 @@
 <?php
   require_once "Database.php";
-  require_once "helpFunctions.php";
+  function modifyDataFormat(string $data){
+    trim($data);
+    stripslashes($data);
+    strip_tags($data);
+    return $data;
+  }
   class User{
     private $username;
     private $password;
@@ -50,5 +55,14 @@
       else $result["error"]="Възникна грешка при промяната.";
       return $result;
     }
+}
+function getUserById(string $id):array{
+  $record=array();
+  $database=new Database('logintest');
+  $exist = $database->dbConnection->prepare("SELECT * FROM `users` WHERE id=:id");
+  $exist->bindParam(':id',$id);
+  $exist->execute();
+  $record = $exist->fetch(PDO::FETCH_ASSOC);
+  return $record;
 }
 ?>
