@@ -65,7 +65,7 @@
     <li id="files"><a href="#">Файлове</a>
       <ul>
         <li><a id="myFiles" href="myFiles.php">Моите файлове</a></li>
-        <li><a id="addFiles" href="addFiles.php">Добави файлове</a></li>
+        <li><a class="active" id="addFiles" href="addFiles.php">Добави файлове</a></li>
       </ul>
     </li>
   </ul>

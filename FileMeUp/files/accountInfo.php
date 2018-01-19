@@ -49,22 +49,25 @@
       <li><p>Добре дошъл <?php echo $_SESSION['acc_name'];?> </p></li>
       <li id="settings"><img src="./imgs/settings.ico" alt="Settings"/>
         <ul>
-          <li id="accountInfo"><a href="accountInfo.php">Акаунт</a></li>
+          <li id="accountInfo"><a class="active" href="accountInfo.php">Акаунт</a></li>
           <li id="exitSite"><a href="exit.php">Изход</a></li>
         </ul>
       </li>
     </ul>
   </nav>
 <main>
-<form name="editUser" target="_self" method="post" enctype="multipart/form-data">
-  <input id="nickname" type="text" name="nickname" value='<?php echo $_SESSION['acc_name'];?>' ><br />
-  <input id="user" type="text" name="username" value=<?php echo $userInfo['name'];?> disabled><br />
-  <input id="pass" type="password" name="password"><br />
-  <input type="submit" value="Промени" /><br />
-  <?php $value=null;if(!empty($result))
-          foreach ($result as $key => $value)?>
-          <p><?php echo $value;?></p>
-</form>
+  <div>
+    <form name="editUser" target="_self" method="post" enctype="multipart/form-data">
+      <input id="nickname" type="text" name="nickname" value='<?php echo $_SESSION['acc_name'];?>' ><br />
+      <input id="user" type="text" name="username" value=<?php echo $userInfo['name'];?> disabled><br />
+      <input id="pass" type="password" name="password"><br />
+      <input type="submit" value="Промени" /><br />
+      <?php $value=null;if(!empty($result))
+              foreach ($result as $key => $value)?>
+              <p><?php echo $value;?></p>
+    </form>
+  </div>
+
 </main>
 </body>
 </html>

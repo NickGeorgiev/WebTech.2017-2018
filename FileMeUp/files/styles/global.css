@@ -8,7 +8,7 @@
   #29648A
 */
 body{
-  background-color: #222629;
+  background-color: white;/*#1B1716;/*#222629*/
   margin:0;
   padding: 0;
 }
@@ -16,22 +16,24 @@ header.siteLogo{
   float: left;
 }
 .siteLogo p{
-  padding: 15px 10px;
+  padding: 12px 12px;
   margin:0;
   color: white;
   font-family: arial;
   font-size: 30px;
+  border-right: .5px dashed #ACAA9E;
 }
 nav.siteNavigation{
   width: 100%;
-  height:58px;
-  background-color: #3b3e42;
+  height:60px;
+  background-color: #252120;/*#141414;#252120;#3b3e42;*/
+  border-bottom:  .5px dashed #ACAA9E;
 }
 .siteNavigation ul{
   margin: 0;
 }
 .siteNavigation ul#leftMenu{
-  padding: 0 0 0 10px;
+  padding: 0 0 0 0px;
   float: left;
 }
 .siteNavigation ul#leftMenu li{
@@ -46,14 +48,19 @@ nav.siteNavigation{
   font-family: arial;
   font-size: 20px;
   text-decoration: none;
+  font-style: italic;
 }
 
 .siteNavigation ul#leftMenu li ul{
-  background-color: #3b3e42;
-  display: block;
+  background-color: #252120;
+  display: none;
   position: absolute;
   padding: 0;
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 12px 12px;
+
+}
+.siteNavigation ul#leftMenu li:hover ul{
+  display: block;
 }
 .siteNavigation ul#leftMenu li ul li{
   width: 180px;
@@ -66,8 +73,12 @@ nav.siteNavigation{
   font-size: 20px;
   text-decoration: none;
 }
+.siteNavigation ul#leftMenu li ul li:last-child a{
+  border-radius: 0 0 12px 12px;
+}
+
 .siteNavigation  a:hover{
-  background-color: #111111;
+  background-color: #A22133;
 }
 .siteNavigation ul#rightMenu{
   padding: 0 0px 0 0;
@@ -80,32 +91,65 @@ nav.siteNavigation{
   position: relative;
 }
 .siteNavigation ul#rightMenu li p{
-  font-size: 18px;
+  font-size: 20px;
   color: white;
   font-weight: bold;
+}
+.siteNavigation ul#rightMenu li p span{
+  color:#e0213c;
+  font-size: 20px;
+  font-style: italic;
 }
 .siteNavigation ul#rightMenu li img{
   padding: 5px 10px 0 0;
   width: 50px;
   height: auto;
+  cursor: pointer;
 }
 .siteNavigation ul#rightMenu li ul{
-  background-color: #3b3e42;
+  display:none;
+  background-color: #252120;
   position: absolute;
   right: 0;
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 12px 12px;
+  padding: 0;
+}
+.siteNavigation ul#rightMenu li:hover ul{
+  display: block;
 }
 .siteNavigation ul#rightMenu li ul li{
   display: block;
+  padding: 0;
 }
 .siteNavigation ul#rightMenu li ul li a{
   display: block;
+  width: 60px;
   padding: 10px 20px;
   color: white;
   font-family: arial;
   font-size: 20px;
   text-decoration: none;
+  font-style: italic;
+}
+.siteNavigation ul#rightMenu li ul li:last-child a{
+  border-radius: 0 0 12px 12px;
 }
 a.active{
-  background-color: black;
+  background-color: #A22133;
+}
+main{
+  height: 100%;
+}
+div{
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+div table{
+  display: block;
+  align-self: center;
+  border: .5px dashed red;
+}
+div table tr:nth-child(odd){
+  background-color: #F3F3F3;
 }

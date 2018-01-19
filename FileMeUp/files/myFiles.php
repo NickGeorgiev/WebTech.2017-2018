@@ -32,7 +32,7 @@
      <li id="mainPage"><a href="mainPage.php">Начало</a></li>
      <li id="files"><a href="#">Файлове</a>
        <ul>
-         <li><a id="myFiles" href="myFiles.php">Моите файлове</a></li>
+         <li><a class="active "id="myFiles" href="myFiles.php">Моите файлове</a></li>
          <li><a id="addFiles" href="addFiles.php">Добави файлове</a></li>
        </ul>
      </li>
@@ -47,7 +47,7 @@
      </li>
    </ul>
  </nav>
- <main>
+ <div>
    <table id="userFiles">
      <tr>
        <th>Тип</th>
@@ -74,6 +74,6 @@
        <td><?php echo $files[$i]['shared'];}?></td>
      </tr>
    </table>
- </main>
+ </div>
  </body>
  </html>
