@@ -30,6 +30,7 @@
   <meta name="author" content="Nikola Georgiev" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="./styles/global.css" />
+  <link rel="stylesheet" type="text/css" href="./styles/forms.css" />
 </head>
 <body>
   <header class="siteLogo">
@@ -46,7 +47,7 @@
       </li>
     </ul>
     <ul id="rightMenu">
-      <li><p>Добре дошъл <?php echo $_SESSION['acc_name'];?> </p></li>
+      <li><p>Добре дошъл, <span><?php echo $_SESSION['acc_name'];?></span> </p></li>
       <li id="settings"><img src="./imgs/settings.ico" alt="Settings"/>
         <ul>
           <li id="accountInfo"><a class="active" href="accountInfo.php">Акаунт</a></li>
@@ -55,19 +56,23 @@
       </li>
     </ul>
   </nav>
-<main>
-  <div>
-    <form name="editUser" target="_self" method="post" enctype="multipart/form-data">
-      <input id="nickname" type="text" name="nickname" value='<?php echo $_SESSION['acc_name'];?>' ><br />
-      <input id="user" type="text" name="username" value=<?php echo $userInfo['name'];?> disabled><br />
-      <input id="pass" type="password" name="password"><br />
-      <input type="submit" value="Промени" /><br />
-      <?php $value=null;if(!empty($result))
-              foreach ($result as $key => $value)?>
-              <p><?php echo $value;?></p>
-    </form>
+  <div class="information">
+    <p class="infoLabel">Информация за акаунта</p><br />
+    <p class="infoText">Тук можете да промените името си в системата, както и паролата си!</p><br />
   </div>
-
-</main>
+  <div class="mainContent">
+      <form class="accountForm" name="editUser" target="_self" method="post" enctype="multipart/form-data">
+        <label class="fieldLabel" for="nickname">Име:</label><br />
+        <input id="nickname" type="text" name="nickname" placeholder="Промени името" value='<?php echo $_SESSION['acc_name'];?>' ><br />
+        <label class="fieldLabel" for="nickname">Потребителско име:</label><br />
+        <input id="user" type="text" name="username" value=<?php echo $userInfo['name'];?> disabled><br />
+        <label class="fieldLabel" for="nickname">Парола:</label><br />
+        <input id="pass" type="password" name="password" placeholder="Въведи нова парола"><br />
+        <input type="submit" value="Промени" /><br />
+        <?php $value=null;if(!empty($result))
+                foreach ($result as $key => $value)?>
+                <p class="prompt"><?php echo $value;?></p>
+      </form>
+  </div>
 </body>
 </html>

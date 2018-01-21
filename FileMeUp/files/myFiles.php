@@ -38,7 +38,7 @@
      </li>
    </ul>
    <ul id="rightMenu">
-     <li><p>Добре дошъл <?php echo $_SESSION['acc_name'];?> </p></li>
+     <li><p>Добре дошъл, <span><?php echo $_SESSION['acc_name'];?></span> </p></li>
      <li id="settings"><img src="./imgs/settings.ico" alt="Settings"/>
        <ul>
          <li id="accountInfo"><a href="accountInfo.php">Акаунт</a></li>
@@ -55,6 +55,7 @@
        <th>Размер</th>
        <th>Дата на добавяне</th>
        <th>Споделен</th>
+       <th>Действие</th>
      </tr>
      <?php if(empty($files)){?>
      <tr>
@@ -71,8 +72,19 @@
        <td><?php echo $files[$i]['name'];?></td>
        <td><?php echo round($files[$i]['size']/1024,2);?></td>
        <td><?php echo $files[$i]['date'];?></td>
-       <td><?php echo $files[$i]['shared'];}?></td>
-     </tr>
+       <td><?php if($files[$i]['shared']==="YES"){?>
+                  <p class="shared">Да</p>
+          <?php }else{?>
+                  <p class="private">Не</p><?php }?>
+       </td>
+       <td><?php if($files[$i]['shared']==="YES"){?>
+                  <button>Заключи</button>
+                  <p class="delete">X</p>
+          <?php }else{?>
+                  <button>Отключи</button>
+                  <p class="delete">X</p><?php }?>
+       </td>
+     </tr><?php }?>
    </table>
  </div>
  </body>

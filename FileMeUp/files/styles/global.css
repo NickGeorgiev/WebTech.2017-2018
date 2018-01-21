@@ -137,19 +137,33 @@ nav.siteNavigation{
 a.active{
   background-color: #A22133;
 }
-main{
-  height: 100%;
-}
-div{
+div.mainContent{
   display: flex;
   justify-content: center;
-  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 div table{
   display: block;
-  align-self: center;
+  align-self: baseline;
   border: .5px dashed red;
 }
 div table tr:nth-child(odd){
-  background-color: #F3F3F3;
+  background-color: #ffdbe0;
+}
+.shared{
+  font-weight: bold;
+  color:green;
+  text-align: center;
+}
+.private{
+  font-weight: bold;
+  color: #A22133;
+  text-align: center;
+}
+button{
+  margin: 0;
+}
+.delete{
+  display: inline-block;
 }
