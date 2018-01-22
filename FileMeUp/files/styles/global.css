@@ -53,14 +53,16 @@ nav.siteNavigation{
 
 .siteNavigation ul#leftMenu li ul{
   background-color: #252120;
-  display: none;
+  display: block;
   position: absolute;
   padding: 0;
   border-radius: 0 0 12px 12px;
-
+  opacity:0;
+  transition: opacity .5s ease-out;
 }
 .siteNavigation ul#leftMenu li:hover ul{
   display: block;
+  opacity: 1;
 }
 .siteNavigation ul#leftMenu li ul li{
   width: 180px;
@@ -79,6 +81,7 @@ nav.siteNavigation{
 
 .siteNavigation  a:hover{
   background-color: #A22133;
+  transition: background-color .3s ease;
 }
 .siteNavigation ul#rightMenu{
   padding: 0 0px 0 0;
@@ -107,15 +110,18 @@ nav.siteNavigation{
   cursor: pointer;
 }
 .siteNavigation ul#rightMenu li ul{
-  display:none;
+  display:block;
   background-color: #252120;
   position: absolute;
   right: 0;
   border-radius: 0 0 12px 12px;
   padding: 0;
+  opacity: 0;
 }
 .siteNavigation ul#rightMenu li:hover ul{
   display: block;
+  opacity: 1;
+  transition: opacity .5s ease-out;
 }
 .siteNavigation ul#rightMenu li ul li{
   display: block;
@@ -143,12 +149,22 @@ div.mainContent{
   width: 100%;
   margin: 0;
 }
-div table{
-  display: block;
+div table.customTable{
+  width:1000px;
   align-self: baseline;
-  border: .5px dashed red;
+  border: 2px dashed #ACAA9E;
+
 }
-div table tr:nth-child(odd){
+.customTable th{
+  margin: 0;
+  padding: 5px 5px ;
+  background-color: #A22133;
+  color: white;
+  font-size: 18px;
+  font-style: italic;
+
+}
+.customTable tr:nth-child(odd){
   background-color: #ffdbe0;
 }
 .shared{
@@ -161,9 +177,52 @@ div table tr:nth-child(odd){
   color: #A22133;
   text-align: center;
 }
-button{
+.customTable button{
   margin: 0;
 }
 .delete{
   display: inline-block;
+}
+a.tooltip{
+  position: relative;
+  display: inline-block;
+}
+span.tooltipContent{
+  display: none;
+  visibility: hidden;
+
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.tooltipContent::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+.tooltip:hover .tooltipContent {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+.tooltipContent img{
+  width: 200px;
+  height: auto;
+  border-radius: 12px;
+}
+.type{
+  width: 30px;
+  height: auto;
+  margin: 0;
 }

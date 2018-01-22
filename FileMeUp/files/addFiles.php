@@ -15,7 +15,8 @@
     $userFolder = '../users/'.$userName."/";
     $shared = $_POST['shared'];
     foreach ($_FILES['fileData']['name'] as $indx => $name) {
-      $fileName=basename($_FILES['fileData']['name'][$indx]);
+      $fileName=$_FILES['fileData']['name'][$indx];
+      $fileNameDB=pathinfo($_FILES['fileData']['name'][$indx], PATHINFO_FILENAME).".".pathinfo($_FILES['fileData']['name'][$indx],PATHINFO_EXTENSION);
       $fileType=$_FILES['fileData']['type'][$indx];
       $fileSize=$_FILES['fileData']['size'][$indx];
       $fileError=$_FILES['fileData']['error'][$indx];
@@ -25,7 +26,7 @@
       if($fileError!==0)$errors["errorUpload"]="Възникна грешка при качването на някой от файловете!";
       if(empty($errors)){
         require_once "FileClass.php";
-        $fileToDB = new File($fileName,$fileType,$userName,$shared,$fileSize);
+        $fileToDB = new File($fileNameDB,$fileType,$userName,$shared,$fileSize);
         $result=array();
         $result = $fileToDB->addToDB();
         if(empty($result)){
@@ -83,12 +84,12 @@
 </div>
 <div class="mainContent">
   <form class="addForm" id="singeFile" name="fileUpload" method="post" enctype="multipart/form-data" target="_self">
-    <label class="fileLabel" for="iFile"><img src="./imgs/upload.png" alt="upload" /> <p class="choice">Избери</p></label>
+    <label id="iFileLabel" class="fileLabel" for="iFile"><img src="./imgs/upload.png" alt="upload" /> <p>Избери</p></label>
     <input id="iFile" type="file" name="fileData[]" />
-    <label class="radioOption">Private
+    <label id="nSharedLabel" class="radioOption">Private
       <input id="sharedFile" type="radio" name="shared" value="NO" checked />
     </label>
-    <label class="radioOption">Shared
+    <label id="ySharedLabel"class="radioOption">Shared
       <input id="sharedFile" type="radio" name="shared" value="YES" / />
     </label>
     <input type="submit" value="Качи" />
@@ -106,14 +107,56 @@
 </body>
 <script type="text/javascript">
   (function(){
-    var target = document.getElementById('dropZone');
-    target.ondragover=function(){
+    //script for drag&drop menu
+    var dropTarget = document.getElementById('dropZone');
+    var showResult = function(data){
+        dropTarget.className='dropFiles dropOrd';
+        dropTarget.innerHTML="";
+        var indx;
+        for(indx=0;indx<data.length;indx++){
+            var pgraph = document.createElement('p');
+            pgraph.style='color:#A22133';
+            console.log(data[indx].name);
+            pgraph.innerHTML=data[indx].name+" "+data[indx].status;
+            dropTarget.appendChild(pgraph);
+        }
+    };
+    var uploadFiles=function(files){
+        var form = new FormData();
+        var xhrReq = new XMLHttpRequest();
+        var indx;
+        for(indx=0;indx<files.length;indx++){
+            form.append('fileData[]',files[indx]);
+        }
+
+
+        xhrReq.open('post','uploadMany.php');
+        xhrReq.send(form);
+        xhrReq.onload = function(){
+            var response = JSON.parse(this.responseText);
+            showResult(response);
+        }
+
+    };
+    dropTarget.ondrop=function(e){
+      e.preventDefault();
+      this.className='dropFiles';
+      uploadFiles(e.dataTransfer.files);
+    };
+    dropTarget.ondragover=function(){
         this.className='dropFiles dragOver';
         return false;
-    }
-    target.ondragleave=function(){
+    };
+    dropTarget.ondragleave=function(){
       this.className='dropFiles';
       return false;
+    };
+    //script for singeFile form
+    var singleForm = document.getElementById('iFile');
+    var fileLabel = document.getElementById('iFileLabel');
+    singleForm.onchange=function(){
+        //console.log(fileLabel.getElementsByTagName('p')[0].innerText);
+        fileLabel.getElementsByTagName('p')[0].innerText=singleForm.files[0].name;
     }
   }());
 </script>

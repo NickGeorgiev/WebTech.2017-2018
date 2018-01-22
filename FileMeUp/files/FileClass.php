@@ -17,7 +17,7 @@
     }
     public function checkQuery():array{
       $result=array();
-      $statement = $this->db->dbConnection->prepare("SELECT * FROM `files` WHERE name=:name and owner=:owner and type=:type");
+      $statement = $this->db->dbConnection->prepare("SELECT * FROM `files` WHERE name like :name and owner=:owner and type=:type");
       $statement->bindParam(':name',$this->name);
       $statement->bindParam(':owner',$this->owner);
       $statement->bindParam(':type',$this->type);
@@ -29,6 +29,7 @@
     }
     public function addToDB():array{
       $errors = array();
+      $temp = $this->checkQuery();
       if(empty($this->checkQuery())){
         $statement = $this->db->dbConnection->prepare("INSERT INTO `files`(name,owner,type,shared,size) VALUES(:name,:owner,:type,:shared,:size)");
         $statement->bindParam(':name',$this->name);

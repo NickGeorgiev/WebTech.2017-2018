@@ -47,8 +47,8 @@
      </li>
    </ul>
  </nav>
- <div>
-   <table id="userFiles">
+ <div class="mainContent">
+   <table id="userFiles" class="customTable">
      <tr>
        <th>Тип</th>
        <th>Име</th>
@@ -63,13 +63,21 @@
      </tr>
    <?php }else for($i=0;$i<count($files);$i++){?>
      <tr>
-       <td><?php if(preg_match("/image\/*/",$files[$i]['type'])){?>
-                  <p>Изображение</p>
+       <td align="center"><?php if(preg_match("/image\/*/",$files[$i]['type'])){?>
+                  <img class="type" src="./imgs/imageIco.png" alt="Изображение" />
             <?php }else if(preg_match("/video\/*/",$files[$i]['type'])){?>
-                        <p>Видео</p>
-                      <?php }else{?><p>Други</p><?php }?>
+                        <img src="./imgs/video.png" alt="Видео" />
+                      <?php }else{?><img class="type" src="./imgs/other.png" alt="Изображение" /><?php }?>
        </td>
-       <td><?php echo $files[$i]['name'];?></td>
+       <td>
+         <a class="tooltip"href="<?php echo "../users/".$userInfo['name']."/".$files[$i]['name'];?>"><?php echo $files[$i]['name'];?>
+           <span class="tooltipContent">
+             <?php if (preg_match("/image\/*/",$files[$i]['type'])){?>
+                    <img src="<?php echo "../users/".$userInfo['name']."/".$files[$i]['name'];?>">
+            <?php }else?>
+           </span>
+         </a>
+       </td>
        <td><?php echo round($files[$i]['size']/1024,2);?></td>
        <td><?php echo $files[$i]['date'];?></td>
        <td><?php if($files[$i]['shared']==="YES"){?>
