@@ -11,7 +11,6 @@
   $userInfo=getUserById($id);
   $result=array();
   if(!empty($_POST)){
-
     $pass=$userInfo['password'];
     $nick=$_SESSION['acc_name'];
     if(!empty($_POST['nickname'])) $nick=$_POST['nickname'];

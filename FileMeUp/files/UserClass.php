@@ -13,7 +13,7 @@
     public function __construct(string $user,string $pass){
       $this->username=$user;
       $this->password=$pass;
-      $this->database=new Database('logintest');
+      $this->database=new Database('pfiles');
     }
     public function getUserInfo():array{
       $record=array();
@@ -58,7 +58,7 @@
 }
 function getUserById(string $id):array{
   $record=array();
-  $database=new Database('logintest');
+  $database=new Database('pfiles');
   $exist = $database->dbConnection->prepare("SELECT * FROM `users` WHERE id=:id");
   $exist->bindParam(':id',$id);
   $exist->execute();

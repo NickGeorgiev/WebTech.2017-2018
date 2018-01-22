@@ -1,0 +1,179 @@
+.accountForm{
+  display: block;
+  width: 800px;
+  height: auto;
+  align-self: baseline;
+  padding: 10px 30px;
+  border: 3px solid #ACAA9E;
+  border-radius: 12px;
+}
+.accountForm input{
+  display: block;
+  width: 50%;
+  font-size: 24px;
+  margin:0 25%;
+  border:0;
+}
+.accountForm input[type=text],input[type=password]{
+  border-bottom: .5px solid #A22133;
+  padding: 0 5px;
+}
+.accountForm input[type=submit]{
+  background-color: #A22133;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 5px 0;
+}
+.accountForm input[type=submit]:hover{
+  background-color: #701521;
+  box-shadow: 2px 2px black;
+}
+.accountForm input[type=text]:disabled{
+  border: 0;
+  background: #fcb0bb;
+  border-radius: 5px;
+  color: #111111;
+  font-style: italic;
+}
+.accountForm label.fieldLabel{
+  font-size: 24px;
+  margin: 0 25%;
+  font-style: italic;
+}
+.prompt{
+  color: #A22133;
+  margin-top: 0;
+
+  font-size: 20px;
+  font-style: italic;
+  text-align: center;
+}
+.information{
+  display: block;
+}
+.information p{
+  text-align: center;
+}
+.infoLabel{
+  font-size: 50px;
+  color: #A22133;
+  font-weight: bold;
+  margin-bottom: 0;
+
+}
+.infoText{
+  font-size: 30px;
+  color: #111111;
+  margin:0;
+}
+.addForm{
+  display: block;
+  width: 800px;
+  height: auto;
+  align-self: baseline;
+  padding: 10px 30px;
+  border: 3px solid #ACAA9E;
+  border-radius: 12px;
+  margin: 0;
+}
+.addForm label.fileLabel{
+  display: block;
+  float: left;
+  cursor: pointer;
+  position: relative;
+  background-color: #A22133;
+  color: white;
+  border-radius: 12px;
+  padding: 5px 10px;
+
+}
+.addForm label.fileLabel p{
+  margin: 0;
+  padding: 0 5px;
+  float: left;
+  font-size: 28px;
+}
+.addForm label.fileLabel img{
+  display: block;
+  width: auto;
+  height: 28px;
+  margin: 0;
+  padding-top: 2px;
+  float: left;
+}
+.addForm label.radioOption{
+  display: block;
+  float: left;
+  font-size: 30px;
+  padding: 5px 5px;
+}
+.addForm input[type=file]{
+  font-size: 1px;
+  z-index: -1;
+  opacity: 0;
+}
+.addForm input[type=submit]{
+  display: block;
+  float: left;
+  font-size: 30px;
+  background-color: #A22133;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+}
+.addForm input[type=submit]:hover{
+  background-color: #701521;
+}
+.dropFiles{
+  width:  800px;
+  height: 400px;
+  display: block;
+  padding: 10px 30px;
+  border: 3px dashed #ACAA9E;
+  border-radius: 12px;
+  text-align: center;
+  line-height: 400px;
+  font-size: 70px;
+  color: #CCCCCC;
+  font-style: italic;
+  transition: background-color .5s ease;
+}
+.dropFiles.dragOver{
+  border-color: #111111;
+  color: white;
+  background-color: #a01c2f;
+  border-color: white;
+}
+.dropOrd{
+  text-align: left;
+  font-size: 18px;
+  line-height: 0;
+  font-style: normal;
+}
+.searchForm{
+  display: block;
+  margin: 40px 0 0px 520px;
+  width: 1000px;
+}
+.searchForm input[type=text]{
+  width:150px;
+  height:45px;
+  margin: 10px 0;
+  font-size: 24px;
+  text-align: right;
+  font-style: italic;
+  padding: 0 45px 0 0;
+  float: right;
+  border-radius: 12px;
+  border: 2px solid #A22133;
+  box-sizing: border-box;
+  background-image: url('../imgs/search.png');
+  background-size: 40px 40px;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  transition: width 0.5s ease-in-out;
+}
+.searchForm input[type=text]:focus {
+    width: 450px;
+}

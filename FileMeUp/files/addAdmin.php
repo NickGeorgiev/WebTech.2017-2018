@@ -1,7 +1,7 @@
 <?php
   $user = 'root';
   $pass = '';
-  $dbName = 'logintest';
+  $dbName = 'pfiles';
   $connect = new PDO("mysql:host=localhost;dbname=$dbName",$user,$pass)or die("FAIL2222!");
   $connect->query("SET NAMES utf8") or die("MMA");
   $admin = 'nickgr';

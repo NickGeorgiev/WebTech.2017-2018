@@ -8,7 +8,7 @@ function modifyDataFormat(string $data){
 function getUserById(string $id):array{
   require_once "Database.php";
   $record=array();
-  $database=new Database('logintest');
+  $database=new Database('pfiles');
   $exist = $database->dbConnection->prepare("SELECT * FROM `users` WHERE id=:id");
   $exist->bindParam(':id',$id);
   $exist->execute();

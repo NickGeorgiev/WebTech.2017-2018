@@ -13,7 +13,7 @@
       $this->owner = $_owner;
       $this->shared = $_shared;
       $this->size = $_size;
-      $this->db = new Database('logintest');
+      $this->db = new Database('pfiles');
     }
     public function checkQuery():array{
       $result=array();
@@ -46,7 +46,7 @@
     }
     public function removeFromDB():array{
       $result = array();
-      $statement = $this->db->dbConnection->prepare("DELETE FROM `files` WHERE name=:name and owner=:owner and type=:type)");
+      $statement = $this->db->dbConnection->prepare("DELETE FROM `files` WHERE name=:name and owner=:owner and type=:type");
       $statement->bindParam(':name',$this->name);
       $statement->bindParam(':owner',$this->owner);
       $statement->bindParam(':type',$this->type);
@@ -59,7 +59,7 @@
   }
   function getFilesForUser(string $user,string $criteria="date",string $style="ASC"){
     $results = array();
-    $db = new Database('logintest');
+    $db = new Database('pfiles');
     $statement = $db->dbConnection->prepare("SELECT * FROM `files` where owner=:owner ORDER BY :criteria :style");
     $statement->bindParam(':owner',$user);
     $statement->bindParam(':criteria',$criteria);

@@ -6,7 +6,7 @@
   }
 ?>
 <?php
-  require_once "helpFunctions.php";
+  require_once "UserClass.php";//was helpfunctions
   $logged=array();
   $error = null;
   $errors = array();
@@ -16,7 +16,7 @@
     $password = modifyDataFormat($_POST['password']);
     $hashed = hash('sha256',$password);
     require_once "Database.php";
-    $database = new Database('logintest');
+    $database = new Database('pfiles');
 //user validation
     if($database){
       $statement = $database->dbConnection->prepare("SELECT id,acc_name FROM `users` where name=:name and password=:password");
@@ -40,24 +40,29 @@
   <meta charset="utf-8" />
   <meta lang="bg" />
   <meta name="author" content="Nikola Georgiev" />
+  <link rel="stylesheet" type="text/css" href="./styles/global.css" />
+  <link rel="stylesheet" type="text/css" href="./styles/forms.css" />
+  <link rel="stylesheet" type="text/css" href="./styles/logIn.css" />
 </head>
-<body>
-  <header>
-
-  </header>
-  <main>
-    <div>
-      <form method="post" action="" enctype="multipart/form-data" target="_self">
+<body class="logInBody">
+    <div class="information">
+      <p class="infoLabel">pFiles</p>
+      <p class="infoLabel">Вход</p>
+    </div>
+    <div class="mainContent">
+      <form class="logIn" method="post" action="" enctype="multipart/form-data" target="_self">
         <input id="user" type="text" placeholder="Username" name="username" required/><br />
-        <input id="pass" type="password" placeholder="password" name="password" required /><br />
+        <input id="pass" type="password" placeholder="Password" name="password" required /><br />
         <input type="submit" value="Вход" />
         <?php if(isset($errors))
                   foreach($errors as $key=>$error)?>
-                    <p><?php echo $error; ?></p><br />
-      </form>
-      <a href="register.php">Регистрация</a>
-    </div>
+                    <p class="prompt"><?php echo $error; ?></p><br />
 
-  </main>
+      </form><br />
+
+    </div>
+    <div class="mainContent">
+      <a class="redirect" href="register.php">Регистрация</a>
+    </div>
 </body>
 </html>

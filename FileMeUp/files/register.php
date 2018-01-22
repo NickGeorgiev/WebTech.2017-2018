@@ -37,24 +37,29 @@
   <meta charset="utf-8" />
   <meta lang="bg" />
   <meta name="author" content="Nikola Georgiev" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="./styles/global.css" />
+  <link rel="stylesheet" type="text/css" href="./styles/forms.css" />
+  <link rel="stylesheet" type="text/css" href="./styles/logIn.css" />
 </head>
-<body>
-  <header>
-
-  </header>
-  <main>
-    <div>
-      <form method="post" action="" enctype="multipart/form-data" target="_self">
+<body class="logInBody">
+  <div class="information">
+    <p class="infoLabel">pFiles</p>
+    <p class="infoLabel">Регистрация</p>
+  </div>
+    <div class="mainContent">
+      <form class="logIn" method="post" action="" enctype="multipart/form-data" target="_self">
         <input id="user" type="text" placeholder="Username" name="username" required/><br />
         <input id="pass" type="password" placeholder="Password" name="password" required /><br />
-        <input id="pass2" type="password" placeholder="Repeat password" name="password2" required /><br />
-        <input type="submit" value="Регистрация" />
+        <input id="pass2" type="password" placeholder="Repeat pass" name="password2" required /><br />
+        <input type="submit"  id="reg" value="Регистрация" />
+        <?php if(isset($errors))?>
+        <?php foreach ($errors as $key => $error)?>
+                      <p class="prompt"><?php echo $error;?></p><br />
       </form>
-      <?php if(isset($errors))?>
-      <?php foreach ($errors as $key => $error)?>
-                    <p><?php echo $error;?></p><br />
-      <a href="index.php">Вход</a>
-
-  </main>
+    </div>
+    <div class="mainContent">
+      <a class="redirect" href="index.php">Вход</a>
+    </div>
 </body>
 </html>
